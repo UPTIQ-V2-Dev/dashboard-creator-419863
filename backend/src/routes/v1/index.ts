@@ -1,9 +1,7 @@
 import config from '../../config/config.ts';
 import authRoute from './auth.route.ts';
-import dashboardRoute from './dashboard.route.ts';
 import docsRoute from './docs.route.ts';
 import mcpRoute from './mcp.route.ts';
-import profileRoute from './profile.route.ts';
 import userRoute from './user.route.ts';
 import express from 'express';
 
@@ -17,14 +15,6 @@ const defaultRoutes = [
     {
         path: '/users',
         route: userRoute
-    },
-    {
-        path: '/api/dashboard',
-        route: dashboardRoute
-    },
-    {
-        path: '/api/user/profile',
-        route: profileRoute
     },
     {
         path: '/mcp',

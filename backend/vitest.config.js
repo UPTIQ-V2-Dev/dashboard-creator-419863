@@ -1,6 +1,5 @@
-import path from 'path';
 import { defineConfig } from 'vitest/config';
-
+import path from 'path';
 export default defineConfig({
     test: {
         globals: true,
@@ -9,14 +8,21 @@ export default defineConfig({
         coverage: {
             provider: 'v8',
             reporter: ['text', 'json', 'html'],
-            exclude: ['node_modules/', 'src/test/', 'src/prisma/', '**/*.d.ts', '**/*.config.*', 'dist/']
+            exclude: [
+                'node_modules/',
+                'src/test/',
+                'src/prisma/',
+                '**/*.d.ts',
+                '**/*.config.*',
+                'dist/',
+            ],
         },
         testTimeout: 10000,
-        hookTimeout: 10000
+        hookTimeout: 10000,
     },
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, './src')
-        }
-    }
+            '@': path.resolve(__dirname, './src'),
+        },
+    },
 });

@@ -1,36 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { mockDashboardData } from '../../data/dashboardMockData';
-import { mockAuthResponse } from '../../data/mockData';
 
 export const handlers = [
-    // Auth endpoints
-    http.post('/api/v1/auth/login', async ({ request }) => {
-        const credentials = (await request.json()) as { email: string; password: string };
-
-        // Simulate login failure for specific email
-        if (credentials.email === 'fail@example.com') {
-            return HttpResponse.json({ message: 'Invalid credentials' }, { status: 401 });
-        }
-
-        return HttpResponse.json(mockAuthResponse);
-    }),
-
-    http.post('/api/v1/auth/register', async () => {
-        return HttpResponse.json(mockAuthResponse);
-    }),
-
-    http.post('/api/v1/auth/refresh', () => {
-        return HttpResponse.json(mockAuthResponse);
-    }),
-
-    http.post('/api/v1/auth/refresh-tokens', () => {
-        return HttpResponse.json(mockAuthResponse);
-    }),
-
-    http.post('/api/v1/auth/logout', () => {
-        return HttpResponse.json({ message: 'Logged out successfully' });
-    }),
-
     // Dashboard endpoints
     http.get('/api/v1/api/dashboard', () => {
         return HttpResponse.json(mockDashboardData);
