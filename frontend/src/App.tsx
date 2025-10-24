@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { DashboardPage } from './pages/DashboardPage';
 import { ComingSoonPage } from './pages/ComingSoonPage';
+import { LoginPage } from './pages/LoginPage';
+import { ProtectedRoute } from './components/auth/ProtectedRoute';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -18,44 +20,88 @@ export const App = () => {
             <Router>
                 <Routes>
                     <Route
+                        path='/login'
+                        element={<LoginPage />}
+                    />
+                    <Route
                         path='/'
-                        element={<DashboardPage />}
+                        element={
+                            <ProtectedRoute>
+                                <DashboardPage />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path='/app-builder'
-                        element={<ComingSoonPage />}
+                        element={
+                            <ProtectedRoute>
+                                <ComingSoonPage />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path='/agent-builder'
-                        element={<ComingSoonPage />}
+                        element={
+                            <ProtectedRoute>
+                                <ComingSoonPage />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path='/skills-library'
-                        element={<ComingSoonPage />}
+                        element={
+                            <ProtectedRoute>
+                                <ComingSoonPage />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path='/rag'
-                        element={<ComingSoonPage />}
+                        element={
+                            <ProtectedRoute>
+                                <ComingSoonPage />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path='/model-hub'
-                        element={<ComingSoonPage />}
+                        element={
+                            <ProtectedRoute>
+                                <ComingSoonPage />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path='/security-monitoring'
-                        element={<ComingSoonPage />}
+                        element={
+                            <ProtectedRoute>
+                                <ComingSoonPage />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path='/config-utils'
-                        element={<ComingSoonPage />}
+                        element={
+                            <ProtectedRoute>
+                                <ComingSoonPage />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path='/connections'
-                        element={<ComingSoonPage />}
+                        element={
+                            <ProtectedRoute>
+                                <ComingSoonPage />
+                            </ProtectedRoute>
+                        }
                     />
                     <Route
                         path='/insights'
-                        element={<ComingSoonPage />}
+                        element={
+                            <ProtectedRoute>
+                                <ComingSoonPage />
+                            </ProtectedRoute>
+                        }
                     />
                 </Routes>
             </Router>

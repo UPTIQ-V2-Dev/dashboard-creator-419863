@@ -1,4 +1,6 @@
-import { Bell, Grid3x3, HelpCircle } from 'lucide-react';
+import { Bell, Grid3x3, HelpCircle, LogOut } from 'lucide-react';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
@@ -9,12 +11,31 @@ import {
     DropdownMenuTrigger
 } from '../ui/dropdown-menu';
 import { UserProfile } from '../../types/dashboard';
+import { authService } from '@/services/auth';
 
 interface HeaderProps {
     user?: UserProfile;
 }
 
 export const Header = ({ user }: HeaderProps) => {
+    const navigate = useNavigate();
+
+    const logoutMutation = useMutation({
+        mutationFn: () => authService.logout(),
+        onSuccess: () => {
+            navigate('/login');
+        },
+        onError: error => {
+            console.error('Logout failed:', error);
+            // Even if logout fails on server, clear local data and redirect
+            navigate('/login');
+        }
+    });
+
+    const handleLogout = () => {
+        logoutMutation.mutate();
+    };
+
     return (
         <header className='border-b bg-background px-6 py-4'>
             <div className='flex items-center justify-between'>
@@ -90,7 +111,14 @@ export const Header = ({ user }: HeaderProps) => {
                             <DropdownMenuItem>Profile Settings</DropdownMenuItem>
                             <DropdownMenuItem>Workspace Settings</DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>Sign Out</DropdownMenuItem>
+                            <DropdownMenuItem
+                                onClick={handleLogout}
+                                disabled={logoutMutation.isPending}
+                                className='text-red-600 focus:text-red-600 cursor-pointer'
+                            >
+                                <LogOut className='h-4 w-4 mr-2' />
+                                {logoutMutation.isPending ? 'Signing out...' : 'Sign Out'}
+                            </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
